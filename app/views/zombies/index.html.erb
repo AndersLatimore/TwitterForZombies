@@ -33,4 +33,28 @@
   </tr>
   <% end %>
 
+<% @zombies.each do |zombie| %>
+  <%= div_for zombie do %>
+    <%= link_to "Zombie #{zombie.name}", zombie %>
+    <div class="actions">
+      <%= link_to 'Edit', edit_zombie_path(zombie) %>
+      <%= link_to 'Destroy', zombie, method: :delete, remote: true %>
+    </div>
+    <% end %>
+  <% end %>
+
 <%= link_to 'New Zombie', new_zombie_path %>
+
+<div id="zombies">
+  <%= render @zombies %>
+</div>
+
+<%= form_for(Zombie.new, remote: true) do |f| %>
+  <div class="field">
+    <%= f.label :name %><br />
+    <%= f.text_field :name %>
+  </div>
+  <div class="action">
+    <%= f.submit %>
+  </div>
+<% end %>
